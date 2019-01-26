@@ -10,8 +10,10 @@ public interface ITramiteDao {
 	
 	void saveOrUpdate(Tramite tramite);
 	
-	void delete();
+	void delete(Tramite tramite);
 	
 	Tramite loadTramite(Tramite tramite);
+	
+	Tramite loadTramite(String descriptionTramite);
 
 }

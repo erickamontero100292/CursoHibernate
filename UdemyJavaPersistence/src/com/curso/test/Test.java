@@ -14,14 +14,15 @@ public class Test {
 		ITramiteDao tramiteService = new TramiteDaoImpl();
 
 		Tramite tramite = new Tramite();
-		Date date = new Date();
+		//Date date = new Date();
 
-		tramite.setFhcTram(new Timestamp(date.getTime()));
-		tramite .setTipoTram("UDEMY4");
+		//tramite.setFhcTram(new Timestamp(date.getTime()));
+		//tramite .setTipoTram("UDEMY4");
 
 		//tramiteService.save(tramite);
-		Tramite tramiteResult = tramiteService.loadTramite(tramite);
+		Tramite tramiteResult = tramiteService.loadTramite("Prueba");
 		System.out.println("Resultado: "+ tramiteResult.toString());
+		tramiteService.delete(tramiteResult);
 
 	}
 
