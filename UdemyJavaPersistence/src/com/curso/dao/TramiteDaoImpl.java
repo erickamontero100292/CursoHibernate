@@ -21,25 +21,22 @@ public class TramiteDaoImpl implements ITramiteDao {
 
 	@Override
 	public void save(Tramite tramite) {
-		
+
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {
-			tx = session.beginTransaction();	
-			session.save(tramite);	
+			tx = session.beginTransaction();
+			session.save(tramite);
 			tx.commit();
-		} 
-		catch (Exception e) {
-			if(tx != null){
+		} catch (Exception e) {
+			if (tx != null) {
 				tx.rollback();
 			}
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			session.close();
 		}
-		
-		
+
 	}
 
 	@Override
@@ -47,20 +44,18 @@ public class TramiteDaoImpl implements ITramiteDao {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {
-			tx = session.beginTransaction();	
-			session.save(tramite);	
+			tx = session.beginTransaction();
+			session.save(tramite);
 			tx.commit();
-		} 
-		catch (Exception e) {
-			if(tx != null){
+		} catch (Exception e) {
+			if (tx != null) {
 				tx.rollback();
 			}
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			session.close();
 		}
-		
+
 	}
 
 	@Override
@@ -87,7 +82,7 @@ public class TramiteDaoImpl implements ITramiteDao {
 			session.close();
 
 		}
-		
+
 	}
 
 	@Override
@@ -96,7 +91,7 @@ public class TramiteDaoImpl implements ITramiteDao {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {
-			tx = session.beginTransaction();	
+			tx = session.beginTransaction();
 			session.delete(tramite);
 			tx.commit();
 		} catch (Exception e) {
@@ -108,8 +103,7 @@ public class TramiteDaoImpl implements ITramiteDao {
 			session.close();
 
 		}
-		
-		
+
 	}
 
 	@Override
@@ -118,9 +112,9 @@ public class TramiteDaoImpl implements ITramiteDao {
 		// usan interfaces
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
-		
+
 		try {
-			tx = session.beginTransaction();	
+			tx = session.beginTransaction();
 			// Fabrica para las piezas individuales de la criteria
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
@@ -133,82 +127,101 @@ public class TramiteDaoImpl implements ITramiteDao {
 			session.getTransaction().commit();
 			session.close();
 			return tramite;
-		
-		} 
-		catch (Exception e) {
-			if(tx != null){
+
+		} catch (Exception e) {
+			if (tx != null) {
 				tx.rollback();
 			}
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			session.close();
 		}
-		
-		
+
 		return tramite;
 	}
 
 	@Override
 	public Tramite loadTramite(String descriptionTramite) {
 		// criteria son consultas de tipo seguro
-				// usan interfaces
-				Session session = HibernateUtil.getSessionFactory().openSession();
-				Transaction tx = null;
-				Tramite tramiteResult = new Tramite();
-				try {
-					tx = session.beginTransaction();	
-					// Fabrica para las piezas individuales de la criteria
-					CriteriaBuilder builder = session.getCriteriaBuilder();
-					CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
-					// Definir el tipo de entidad que retorna la consulta
-					Root<Tramite> root = criteria.from(Tramite.class);
-					// Construyendo la consulta
-					criteria.select(root);
-					criteria.where(builder.equal(root.get(Tramite_.tipoTram), descriptionTramite));
-					tramiteResult = session.createQuery(criteria).getSingleResult();
-					session.getTransaction().commit();
-					session.close();
-					
-				
-				} 
-				catch (Exception e) {
-					if(tx != null){
-						tx.rollback();
-					}
-					e.printStackTrace();
-				}
-				finally {
-					session.close();
-				}
-				return tramiteResult;
+		// usan interfaces
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		Tramite tramiteResult = new Tramite();
+		try {
+			tx = session.beginTransaction();
+			// Fabrica para las piezas individuales de la criteria
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+			// Definir el tipo de entidad que retorna la consulta
+			Root<Tramite> root = criteria.from(Tramite.class);
+			// Construyendo la consulta
+			criteria.select(root);
+			criteria.where(builder.equal(root.get(Tramite_.tipoTram), descriptionTramite));
+			tramiteResult = session.createQuery(criteria).getSingleResult();
+			session.getTransaction().commit();
+			session.close();
+
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return tramiteResult;
 	}
 
 	@Override
-	public List<Tramite>  consultWithCriteria(String descriptionTramite) {
+	public List<Tramite> consultWithCreateQuery(String descriptionTramite) {
 		// TODO Auto-generated method stub
-		
+
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Tramite> listTramite = null;
 		try {
-		session.beginTransaction();
-		@SuppressWarnings("unchecked")
-		Query<Tramite> query = session.createQuery("from Tramite where tipoTram = :tipoTram");
-		query.setParameter("tipoTram", descriptionTramite);
-		listTramite = query.getResultList();
-		session.getTransaction().commit();
-		session.close();
-	
-		} 
-		catch (Exception e) {
-	
+			session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			Query<Tramite> query = session.createQuery("from Tramite where tipoTram = :tipoTram");
+			query.setParameter("tipoTram", descriptionTramite);
+			listTramite = query.getResultList();
+			session.getTransaction().commit();
+			session.close();
+
+		} catch (Exception e) {
+
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			session.close();
 		}
 		return listTramite;
-		
+
+	}
+
+	@Override
+	public List<Tramite> consultWithCriteria() {
+		// criteria son consultas de tipo seguro
+		// usan interfaces
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Tramite> listTramite = null;
+		try {
+			session.beginTransaction();
+			// Fabrica para las piezas individuales de la criteria
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+//			 Definir el tipo de entidad que reronar la consulta
+			Root<Tramite> root = criteria.from(Tramite.class);
+			// Construyendo la consulta
+			criteria.select(root);
+			listTramite = session.createQuery(criteria).getResultList();
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return listTramite;
 	}
 
 }
