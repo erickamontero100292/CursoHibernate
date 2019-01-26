@@ -20,6 +20,7 @@ public class AvaluoDaoImpl implements IAvaluoDao {
 		
 	}
 
+	
 	@Override
 	public void delete() {
 		// TODO Auto-generated method stub
