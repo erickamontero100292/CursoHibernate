@@ -1,5 +1,7 @@
 package com.curso.idao;
 
+import java.util.List;
+
 import com.curso.domain.Tramite;
 
 public interface ITramiteDao {
@@ -15,5 +17,7 @@ public interface ITramiteDao {
 	Tramite loadTramite(Tramite tramite);
 	
 	Tramite loadTramite(String descriptionTramite);
+	
+	List<Tramite>  consultWithCriteria(String descriptionTramite);
 
 }

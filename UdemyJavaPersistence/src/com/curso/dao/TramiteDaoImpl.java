@@ -7,11 +7,13 @@ import com.curso.util.HibernateUtil;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -180,6 +182,33 @@ public class TramiteDaoImpl implements ITramiteDao {
 					session.close();
 				}
 				return tramiteResult;
+	}
+
+	@Override
+	public List<Tramite>  consultWithCriteria(String descriptionTramite) {
+		// TODO Auto-generated method stub
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Tramite> listTramite = null;
+		try {
+		session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		Query<Tramite> query = session.createQuery("from Tramite where tipoTram = :tipoTram");
+		query.setParameter("tipoTram", descriptionTramite);
+		listTramite = query.getResultList();
+		session.getTransaction().commit();
+		session.close();
+	
+		} 
+		catch (Exception e) {
+	
+			e.printStackTrace();
+		}
+		finally {
+			session.close();
+		}
+		return listTramite;
+		
 	}
 
 }
