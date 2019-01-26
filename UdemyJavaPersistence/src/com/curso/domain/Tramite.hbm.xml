@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<hibernate-mapping package="com.novellius.domain">
+	<class name="Tramite" table="Tramite">
+		<!-- 	Mapping del id -->
+		<id name="idTram" column="idTram">
+			<generator class="native"/>
+		</id>
+		
+<!-- 		<property name="tipoTram" type="string" column="tipoTram"/> -->
+
+<!-- 		Mapping del resto de las filas -->
+		<property name="tipoTram" type="string" />
+		<property name="fhcTram" type="timestamp" />
+	</class>
+</hibernate-mapping>
