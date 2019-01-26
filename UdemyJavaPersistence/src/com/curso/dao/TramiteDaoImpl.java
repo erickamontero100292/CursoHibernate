@@ -224,4 +224,34 @@ public class TramiteDaoImpl implements ITramiteDao {
 		return listTramite;
 	}
 
+	@Override
+	public List<Tramite> consultWithCriteriaCustom(String descriptionTramite) {
+		// criteria son consultas de tipo seguro
+		// usan interfaces
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Tramite> listTramite = null;
+		try {
+			session.beginTransaction();
+			// Fabrica para las piezas individuales de la criteria
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+			// Definir el tipo de entidad que retorna la consulta
+			Root<Tramite> root = criteria.from(Tramite.class);
+			// Construyendo la consulta
+			criteria.select(root);
+			criteria.where(builder.equal(root.get(Tramite_.tipoTram), descriptionTramite));
+			listTramite = session.createQuery(criteria).getResultList();
+			session.getTransaction().commit();
+			session.close();
+		} catch (
+
+		Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return listTramite;
+	}
+
 }

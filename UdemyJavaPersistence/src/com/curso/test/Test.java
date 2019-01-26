@@ -17,7 +17,8 @@ public class Test {
 
 		ITramiteDao tramiteService = new TramiteDaoImpl();
 //		pruebaConsultWithCriteria(tramiteService,"UDEMY2");
-		pruebaConsultWithCriteria(tramiteService);
+//		pruebaConsultWithCriteria(tramiteService);
+		pruebaConsultWithCriteriaCustom(tramiteService,"UDEMY2");
 
 	}
 	
@@ -39,4 +40,12 @@ public class Test {
 		
 	}
 
+	public static void pruebaConsultWithCriteriaCustom(ITramiteDao tramiteService, String description) {
+		List<Tramite> listTramite = tramiteService.consultWithCriteriaCustom(description);
+		
+		for(Tramite tramite : listTramite) {
+			System.out.println(tramite.toString());
+		}
+		
+	}
 }

@@ -22,4 +22,6 @@ public interface ITramiteDao {
 
 	List<Tramite> consultWithCriteria();
 
+	List<Tramite> consultWithCriteriaCustom(String descriptionTramite);
+
 }
