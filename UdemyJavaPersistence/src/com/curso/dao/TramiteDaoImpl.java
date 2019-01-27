@@ -45,7 +45,7 @@ public class TramiteDaoImpl implements ITramiteDao {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.save(tramite);
+			session.update(tramite);
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null) {
