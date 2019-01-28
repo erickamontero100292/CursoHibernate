@@ -98,7 +98,7 @@ public class AvaluoDaoImpl implements IAvaluoDao {
 			// Construyendo la consulta
 			criteria.select(root);
 			criteria.where(builder.equal(root.get(Avaluo_.lugarAval), descriptionAvaluo));
-			 avaluoResult = session.createQuery(criteria).getSingleResult();
+			avaluoResult = session.createQuery(criteria).getSingleResult();
 			session.getTransaction().commit();
 			session.close();
 
@@ -140,14 +140,59 @@ public class AvaluoDaoImpl implements IAvaluoDao {
 
 	@Override
 	public List<Avaluo> consultWithCriteria() {
-		// TODO Auto-generated method stub
-		return null;
+		// criteria son consultas de tipo seguro
+		// usan interfaces
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Avaluo> listAvaluo = null;
+		try {
+			session.beginTransaction();
+			// Fabrica para las piezas individuales de la criteria
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Avaluo> criteria = builder.createQuery(Avaluo.class);
+//					 Definir el tipo de entidad que reronar la consulta
+			Root<Avaluo> root = criteria.from(Avaluo.class);
+			// Construyendo la consulta
+			criteria.select(root);
+			listAvaluo = session.createQuery(criteria).getResultList();
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return listAvaluo;
 	}
 
 	@Override
 	public List<Avaluo> consultWithCriteriaCustom(String descriptionAvaluo) {
-		// TODO Auto-generated method stub
-		return null;
+		// criteria son consultas de tipo seguro
+				// usan interfaces
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				List<Avaluo> listAvaluo= null;
+				try {
+					session.beginTransaction();
+					// Fabrica para las piezas individuales de la criteria
+					CriteriaBuilder builder = session.getCriteriaBuilder();
+					CriteriaQuery<Avaluo> criteria = builder.createQuery(Avaluo.class);
+					// Definir el tipo de entidad que retorna la consulta
+					Root<Avaluo> root = criteria.from(Avaluo.class);
+					// Construyendo la consulta
+					criteria.select(root);
+					criteria.where(builder.equal(root.get(Avaluo_.lugarAval), descriptionAvaluo));
+					listAvaluo = session.createQuery(criteria).getResultList();
+					session.getTransaction().commit();
+					session.close();
+				} catch (
+
+				Exception e) {
+
+					e.printStackTrace();
+				} finally {
+					session.close();
+				}
+				return listAvaluo;
 	}
 
 }

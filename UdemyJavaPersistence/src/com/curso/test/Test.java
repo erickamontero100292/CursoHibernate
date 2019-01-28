@@ -25,7 +25,9 @@ public class Test {
 //		pruebaConsultWithCriteriaCustom(tramiteService,"UDEMY2");
 //		pruebaInsertAvaluo( tramiteService, avaluoService);
 //		pruebaUpdateAvaluo( avaluoService);		
-		pruebaConsulAvaluotWithCreateQuery(avaluoService,"Guatire");
+//		pruebaConsulAvaluotWithCreateQuery(avaluoService,"Guatire");
+//		pruebaAvaluoConsultWithCriteria(avaluoService);
+		pruebaAvaluoConsultWithCriteriaCustom(avaluoService,"Guatire");
 
 
 	}
@@ -83,6 +85,24 @@ public class Test {
 	
 	public static void pruebaConsulAvaluotWithCreateQuery(IAvaluoDao avaluoService, String lugar) {
 		List<Avaluo> listAvaluo = avaluoService.consultWithCreateQuery(lugar);
+		
+		for(Avaluo avaluo : listAvaluo) {
+			System.out.println(avaluo.toString());
+		}
+		
+	}
+	
+	public static void pruebaAvaluoConsultWithCriteria(IAvaluoDao avaluoService) {
+		List<Avaluo> listAvaluo = avaluoService.consultWithCriteria();
+		
+		for(Avaluo avaluo : listAvaluo) {
+			System.out.println(avaluo.toString());
+		}
+		
+	}
+	
+	public static void pruebaAvaluoConsultWithCriteriaCustom(IAvaluoDao avaluoService, String description) {
+		List<Avaluo> listAvaluo = avaluoService.consultWithCriteriaCustom(description);
 		
 		for(Avaluo avaluo : listAvaluo) {
 			System.out.println(avaluo.toString());
