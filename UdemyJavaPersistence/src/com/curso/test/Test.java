@@ -12,8 +12,6 @@ import com.curso.idao.IAvaluoDao;
 import com.curso.idao.ITramiteDao;
 import java.util.List;
 
-
-
 public class Test {
 
 	public static void main(String[] args) {
@@ -27,86 +25,99 @@ public class Test {
 //		pruebaUpdateAvaluo( avaluoService);		
 //		pruebaConsulAvaluotWithCreateQuery(avaluoService,"Guatire");
 //		pruebaAvaluoConsultWithCriteria(avaluoService);
-		pruebaAvaluoConsultWithCriteriaCustom(avaluoService,"Guatire");
-
+//		pruebaAvaluoConsultWithCriteriaCustom(avaluoService,"Guatire");
+		pruebaSaveOneToOne(tramiteService,avaluoService);
 
 	}
-	
+
 	public static void pruebaConsultWithCreateQuery(ITramiteDao tramiteService, String description) {
 		List<Tramite> listTramite = tramiteService.consultWithCreateQuery(description);
-		
-		for(Tramite tramite : listTramite) {
+
+		for (Tramite tramite : listTramite) {
 			System.out.println(tramite.toString());
 		}
-		
+
 	}
-	
+
 	public static void pruebaConsultWithCriteria(ITramiteDao tramiteService) {
 		List<Tramite> listTramite = tramiteService.consultWithCriteria();
-		
-		for(Tramite tramite : listTramite) {
+
+		for (Tramite tramite : listTramite) {
 			System.out.println(tramite.toString());
 		}
-		
+
 	}
 
 	public static void pruebaConsultWithCriteriaCustom(ITramiteDao tramiteService, String description) {
 		List<Tramite> listTramite = tramiteService.consultWithCriteriaCustom(description);
-		
-		for(Tramite tramite : listTramite) {
+
+		for (Tramite tramite : listTramite) {
 			System.out.println(tramite.toString());
 		}
-		
+
 	}
-	
-	public static void pruebaInsertAvaluo(ITramiteDao tramiteService,IAvaluoDao avaluoService) {
-		
+
+	public static void pruebaInsertAvaluo(ITramiteDao tramiteService, IAvaluoDao avaluoService) {
+
 		Tramite tramite = tramiteService.loadTramite("UDEMY");
 		Avaluo aval = new Avaluo();
-		
+
 		aval.setLugarAval("Guatire");
 		aval.setTramite(tramite);
-		
+
 		avaluoService.save(aval);
-		System.out.println("Registro salvado: "+ aval.toString());	
-		
+		System.out.println("Registro salvado: " + aval.toString());
+
 	}
-	
+
 	public static void pruebaUpdateAvaluo(IAvaluoDao avaluoService) {
-		
-		Avaluo aval = new Avaluo();	
-		aval =avaluoService.loadAvaluo( "Caracas");
+
+		Avaluo aval = new Avaluo();
+		aval = avaluoService.loadAvaluo("Caracas");
 		aval.setLugarAval("Guatire");
 		Avaluo aval2 = aval;
 		avaluoService.update(aval2);
-		System.out.println("Registro actualizado: "+ aval.toString());	
-		
+		System.out.println("Registro actualizado: " + aval.toString());
+
 	}
-	
+
 	public static void pruebaConsulAvaluotWithCreateQuery(IAvaluoDao avaluoService, String lugar) {
 		List<Avaluo> listAvaluo = avaluoService.consultWithCreateQuery(lugar);
-		
-		for(Avaluo avaluo : listAvaluo) {
+
+		for (Avaluo avaluo : listAvaluo) {
 			System.out.println(avaluo.toString());
 		}
-		
+
 	}
-	
+
 	public static void pruebaAvaluoConsultWithCriteria(IAvaluoDao avaluoService) {
 		List<Avaluo> listAvaluo = avaluoService.consultWithCriteria();
-		
-		for(Avaluo avaluo : listAvaluo) {
+
+		for (Avaluo avaluo : listAvaluo) {
 			System.out.println(avaluo.toString());
 		}
-		
+
 	}
-	
+
 	public static void pruebaAvaluoConsultWithCriteriaCustom(IAvaluoDao avaluoService, String description) {
 		List<Avaluo> listAvaluo = avaluoService.consultWithCriteriaCustom(description);
-		
-		for(Avaluo avaluo : listAvaluo) {
+
+		for (Avaluo avaluo : listAvaluo) {
 			System.out.println(avaluo.toString());
 		}
+
+	}
+	
+	public static void pruebaSaveOneToOne(ITramiteDao tramiteService, IAvaluoDao avaluoService) {
+		Date date = new Date();
 		
+		Tramite tramite = new Tramite("Prueba OneToOne", new Timestamp(date.getTime()));
+		
+		tramiteService.save(tramite);
+		
+		Avaluo avaluo = new Avaluo("Bogota");
+		avaluo.setTramite(tramite);
+		
+		avaluoService.save(avaluo);
 	}
 }
