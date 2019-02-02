@@ -168,31 +168,52 @@ public class AvaluoDaoImpl implements IAvaluoDao {
 	@Override
 	public List<Avaluo> consultWithCriteriaCustom(String descriptionAvaluo) {
 		// criteria son consultas de tipo seguro
-				// usan interfaces
-				Session session = HibernateUtil.getSessionFactory().openSession();
-				List<Avaluo> listAvaluo= null;
-				try {
-					session.beginTransaction();
-					// Fabrica para las piezas individuales de la criteria
-					CriteriaBuilder builder = session.getCriteriaBuilder();
-					CriteriaQuery<Avaluo> criteria = builder.createQuery(Avaluo.class);
-					// Definir el tipo de entidad que retorna la consulta
-					Root<Avaluo> root = criteria.from(Avaluo.class);
-					// Construyendo la consulta
-					criteria.select(root);
-					criteria.where(builder.equal(root.get(Avaluo_.lugarAval), descriptionAvaluo));
-					listAvaluo = session.createQuery(criteria).getResultList();
-					session.getTransaction().commit();
-					session.close();
-				} catch (
+		// usan interfaces
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Avaluo> listAvaluo = null;
+		try {
+			session.beginTransaction();
+			// Fabrica para las piezas individuales de la criteria
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Avaluo> criteria = builder.createQuery(Avaluo.class);
+			// Definir el tipo de entidad que retorna la consulta
+			Root<Avaluo> root = criteria.from(Avaluo.class);
+			// Construyendo la consulta
+			criteria.select(root);
+			criteria.where(builder.equal(root.get(Avaluo_.lugarAval), descriptionAvaluo));
+			listAvaluo = session.createQuery(criteria).getResultList();
+			session.getTransaction().commit();
+			session.close();
+		} catch (
 
-				Exception e) {
+		Exception e) {
 
-					e.printStackTrace();
-				} finally {
-					session.close();
-				}
-				return listAvaluo;
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return listAvaluo;
+	}
+
+	@Override
+	public Avaluo loadAvaluo(int idAvaluo) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		Avaluo avaluo = null;
+
+		try {
+			tx = session.beginTransaction();
+			// Consultar el tramite de un Avaluo
+			 avaluo = session.load(Avaluo.class, idAvaluo);
+			Tramite tramite = avaluo.getTramite();
+			tx.commit();
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return avaluo;
 	}
 
 }
