@@ -204,11 +204,11 @@ public class AvaluoDaoImpl implements IAvaluoDao {
 		try {
 			tx = session.beginTransaction();
 			// Consultar el tramite de un Avaluo
-			 avaluo = session.load(Avaluo.class, idAvaluo);
+			avaluo = session.load(Avaluo.class, idAvaluo);
 			Tramite tramite = avaluo.getTramite();
 			tx.commit();
 		} catch (Exception e) {
-		
+
 			e.printStackTrace();
 		} finally {
 			session.close();
@@ -234,9 +234,7 @@ public class AvaluoDaoImpl implements IAvaluoDao {
 			listAvaluo = session.createQuery(criteria).getResultList();
 			session.getTransaction().commit();
 			session.close();
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		} finally {

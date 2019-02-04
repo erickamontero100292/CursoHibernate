@@ -1,5 +1,6 @@
 package com.curso.dao;
 
+import com.curso.domain.Avaluo;
 import com.curso.domain.Tramite;
 import com.curso.domain.Tramite_;
 import com.curso.idao.ITramiteDao;
@@ -252,6 +253,30 @@ public class TramiteDaoImpl implements ITramiteDao {
 			session.close();
 		}
 		return listTramite;
+	}
+
+	@Override
+	public void loadTramite(int idTramite) {
+		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		Tramite tramite = null;
+		Tramite tramite2 = null;
+
+		try {
+			tx = session.beginTransaction();
+			tramite = session.load(Tramite.class, idTramite);
+			tx.commit();
+			System.out.println(
+					"El tramite : " + tramite.getIdTram() + " tiene lugar en: " + tramite.getAvaluo().getLugarAval());
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
 	}
 
 }

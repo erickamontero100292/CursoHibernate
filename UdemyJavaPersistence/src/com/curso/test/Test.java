@@ -28,7 +28,8 @@ public class Test {
 //		pruebaAvaluoConsultWithCriteriaCustom(avaluoService,"Bogota");
 //		pruebaSaveOneToOne(tramiteService,avaluoService);
 //		 pruebaConsultAvaluoGetTramite(avaluoService);
-		 pruebaConsultAvaluoGetAllTramite(avaluoService);
+//		 pruebaConsultAvaluoGetAllTramite(avaluoService);
+		pruebaConsultTramiteGetAvaluo(tramiteService);
 
 	}
 
@@ -109,35 +110,42 @@ public class Test {
 		}
 
 	}
-	
+
 	public static void pruebaSaveOneToOne(ITramiteDao tramiteService, IAvaluoDao avaluoService) {
 		Date date = new Date();
-		
+
 		Tramite tramite = new Tramite("Prueba OneToOne", new Timestamp(date.getTime()));
-		
+
 		tramiteService.save(tramite);
-		
+
 		Avaluo avaluo = new Avaluo("Bogota");
 		avaluo.setTramite(tramite);
-		
+
 		avaluoService.save(avaluo);
 	}
-	
+
 	public static void pruebaConsultAvaluoGetTramite(IAvaluoDao avaluoService) {
-		
+
 		Avaluo aval = avaluoService.loadAvaluo(2);
 		Tramite tramite = aval.getTramite();
-		
-		System.out.println("Para el avaluo - "+aval.getIdAval() + " el tramite es - "+ tramite.toString());
+
+		System.out.println("Para el avaluo - " + aval.getIdAval() + " el tramite es - " + tramite.toString());
 	}
-	
+
 	public static void pruebaConsultAvaluoGetAllTramite(IAvaluoDao avaluoService) {
-		
+
 		List<Avaluo> listAvaluo = avaluoService.consultAllAvaluoGetTramite();
-		
+
 		for (Avaluo avaluo : listAvaluo) {
-			System.out.println("Para el avaluo: " + avaluo.getIdAval() +" el tramite es: "+ avaluo.getTramite().getTipoTram());
+			System.out.println(
+					"Para el avaluo: " + avaluo.getIdAval() + " el tramite es: " + avaluo.getTramite().getTipoTram());
 		}
 
 	}
+
+	public static void pruebaConsultTramiteGetAvaluo(ITramiteDao tramiteService) {
+		tramiteService.loadTramite(9);
+
+	}
+
 }

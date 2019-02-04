@@ -16,6 +16,8 @@ public interface ITramiteDao {
 
 	Tramite loadTramite(Tramite tramite);
 
+	void loadTramite(int idTramite);
+
 	Tramite loadTramite(String descriptionTramite);
 
 	List<Tramite> consultWithCreateQuery(String descriptionTramite);

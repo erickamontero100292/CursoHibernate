@@ -5,7 +5,7 @@ import java.util.List;
 import com.curso.domain.Avaluo;
 
 public interface IAvaluoDao {
-	
+
 	void save(Avaluo avaluo);
 
 	void update(Avaluo avaluo);
@@ -23,8 +23,8 @@ public interface IAvaluoDao {
 	List<Avaluo> consultWithCriteria();
 
 	List<Avaluo> consultWithCriteriaCustom(String descriptionAvaluo);
-	
+
 	Avaluo loadAvaluo(int idAvaluo);
-	
+
 	List<Avaluo> consultAllAvaluoGetTramite();
 }
