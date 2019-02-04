@@ -216,4 +216,33 @@ public class AvaluoDaoImpl implements IAvaluoDao {
 		return avaluo;
 	}
 
+	@Override
+	public List<Avaluo> consultAllAvaluoGetTramite() {
+		// criteria son consultas de tipo seguro
+		// usan interfaces
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Avaluo> listAvaluo = null;
+		try {
+			session.beginTransaction();
+			// Fabrica para las piezas individuales de la criteria
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Avaluo> criteria = builder.createQuery(Avaluo.class);
+			// Definir el tipo de entidad que retorna la consulta
+			Root<Avaluo> root = criteria.from(Avaluo.class);
+			// Construyendo la consulta
+			criteria.select(root);
+			listAvaluo = session.createQuery(criteria).getResultList();
+			session.getTransaction().commit();
+			session.close();
+		} catch (
+
+		Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return listAvaluo;
+	}
+
 }

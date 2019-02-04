@@ -27,7 +27,8 @@ public class Test {
 //		pruebaAvaluoConsultWithCriteria(avaluoService);
 //		pruebaAvaluoConsultWithCriteriaCustom(avaluoService,"Bogota");
 //		pruebaSaveOneToOne(tramiteService,avaluoService);
-		 pruebaConsultAvaluoGetTramite(avaluoService);
+//		 pruebaConsultAvaluoGetTramite(avaluoService);
+		 pruebaConsultAvaluoGetAllTramite(avaluoService);
 
 	}
 
@@ -128,5 +129,15 @@ public class Test {
 		Tramite tramite = aval.getTramite();
 		
 		System.out.println("Para el avaluo - "+aval.getIdAval() + " el tramite es - "+ tramite.toString());
+	}
+	
+	public static void pruebaConsultAvaluoGetAllTramite(IAvaluoDao avaluoService) {
+		
+		List<Avaluo> listAvaluo = avaluoService.consultAllAvaluoGetTramite();
+		
+		for (Avaluo avaluo : listAvaluo) {
+			System.out.println("Para el avaluo: " + avaluo.getIdAval() +" el tramite es: "+ avaluo.getTramite().getTipoTram());
+		}
+
 	}
 }

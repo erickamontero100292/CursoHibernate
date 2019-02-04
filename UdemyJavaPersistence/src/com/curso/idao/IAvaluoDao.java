@@ -25,4 +25,6 @@ public interface IAvaluoDao {
 	List<Avaluo> consultWithCriteriaCustom(String descriptionAvaluo);
 	
 	Avaluo loadAvaluo(int idAvaluo);
+	
+	List<Avaluo> consultAllAvaluoGetTramite();
 }
